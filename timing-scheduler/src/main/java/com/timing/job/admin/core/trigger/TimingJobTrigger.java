@@ -30,8 +30,6 @@ public class TimingJobTrigger {
         TimingJobInfo jobInfo = TimingJobScheduler.timingJobInfoDao.loadById(jobId);              // job info
         TimingJobGroup group = TimingJobScheduler.timingJobGroupDao.load(jobInfo.getJobGroup());  // group info
 
-        //TimingJobScheduler.timingJobRegistryDao.
-
 
         ExecutorBlockStrategyEnum blockStrategy = ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), ExecutorBlockStrategyEnum.SERIAL_EXECUTION);  // block strategy
         ExecutorFailStrategyEnum failStrategy = ExecutorFailStrategyEnum.match(jobInfo.getExecutorFailStrategy(), ExecutorFailStrategyEnum.FAIL_ALARM);    // fail strategy
@@ -40,7 +38,6 @@ public class TimingJobTrigger {
         if(null!=group){
             addressList = (ArrayList<String>) group.getRegistryList();
         }
-
 
 
         // broadcast
