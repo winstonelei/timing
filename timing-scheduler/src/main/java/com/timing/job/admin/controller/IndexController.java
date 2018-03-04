@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * index controller
+ *
  */
 @Controller
 public class IndexController {
@@ -50,7 +51,8 @@ public class IndexController {
 		}
 		return "login";
 	}
-	
+
+	//登陆
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	@ResponseBody
 	@PermessionLimit(limit=false)
