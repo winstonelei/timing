@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by winstone on 2017/8/23.
  */
+@Deprecated
 public class JobFailMonitorHelper {
     private static Logger logger = LoggerFactory.getLogger(JobFailMonitorHelper.class);
 

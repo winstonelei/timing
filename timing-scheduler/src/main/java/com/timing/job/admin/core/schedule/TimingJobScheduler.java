@@ -4,6 +4,7 @@ import com.timing.executor.core.biz.AdminBz;
 import com.timing.executor.core.biz.ExecutorService;
 import com.timing.executor.core.biz.rpc.net.jetty.NetClientProxy;
 import com.timing.executor.core.biz.rpc.net.jetty.NetServerFactory;
+import com.timing.job.admin.core.disruptor.publisher.JobFailEventPublisher;
 import com.timing.job.admin.core.jobbean.RemoteHttpJobBean;
 import com.timing.job.admin.core.model.TimingJobInfo;
 import com.timing.job.admin.core.thread.JobFailMonitorHelper;
@@ -64,10 +65,10 @@ public class TimingJobScheduler implements ApplicationContextAware{
     //初始化，主要是初始化
     public void init()throws  Exception{
 
-        JobRegistryMonitorHelper.getInstance().start();
-
+     //   JobRegistryMonitorHelper.getInstance().start();
+        JobFailEventPublisher.getInstance().start(1024);
         // admin monitor run
-        JobFailMonitorHelper.getInstance().start();
+        //JobFailMonitorHelper.getInstance().start();
 
         // admin-server(spring-mvc)
         NetServerFactory.putService(AdminBz.class, TimingJobScheduler.adminBz);
@@ -85,7 +86,8 @@ public class TimingJobScheduler implements ApplicationContextAware{
         JobRegistryMonitorHelper.getInstance().toStop();
 
         // admin monitor stop
-        JobFailMonitorHelper.getInstance().toStop();
+        //JobFailMonitorHelper.getInstance().toStop();
+        JobFailEventPublisher.getInstance().destory();
 
     }
 

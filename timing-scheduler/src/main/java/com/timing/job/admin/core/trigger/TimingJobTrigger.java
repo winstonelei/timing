@@ -4,6 +4,7 @@ import com.timing.executor.core.biz.ExecutorService;
 import com.timing.executor.core.biz.model.ExecutorBlockStrategyEnum;
 import com.timing.executor.core.biz.model.ReturnT;
 import com.timing.executor.core.biz.model.TriggerParam;
+import com.timing.job.admin.core.disruptor.publisher.JobFailEventPublisher;
 import com.timing.job.admin.core.enums.ExecutorFailStrategyEnum;
 import com.timing.job.admin.core.model.TimingJobGroup;
 import com.timing.job.admin.core.model.TimingJobInfo;
@@ -106,7 +107,8 @@ public class TimingJobTrigger {
                 TimingJobScheduler.timingJobLogDao.updateTriggerInfo(jobLog);
 
                 // 6、monitor triger
-                JobFailMonitorHelper.monitor(jobLog.getId());
+                //JobFailMonitorHelper.monitor(jobLog.getId());
+                JobFailEventPublisher.getInstance().publishEvent(jobLog.getId());
                 logger.debug(">>>>>>>>>>> timing-job trigger end, jobId:{}", jobLog.getId());
 
             }
@@ -174,7 +176,8 @@ public class TimingJobTrigger {
         TimingJobScheduler.timingJobLogDao.updateTriggerInfo(jobLog);
 
         // 6、monitor triger
-        JobFailMonitorHelper.monitor(jobLog.getId());
+        //JobFailMonitorHelper.monitor(jobLog.getId());
+        JobFailEventPublisher.getInstance().publishEvent(jobLog.getId());
         logger.debug(">>>>>>>>>>> timing-job trigger end, jobId:{}", jobLog.getId());
 
 

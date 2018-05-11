@@ -17,7 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by winstone on 2017/8/23.
+ *
  */
+//@TODO: 5/11/2018 更新为schedule 调度 检测
 public class JobRegistryMonitorHelper {
 
     private static Logger logger = LoggerFactory.getLogger(JobRegistryMonitorHelper.class);
