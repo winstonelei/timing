@@ -37,5 +37,10 @@
 		<property name="accessToken" value="${timing.job.accessToken}" />
 	</bean>
 
+<!--	<bean id="handleCallbackPublisher" class="com.timing.executor.core.biz.disruptor.publisher.HandleCallbackPublisher"   >
+
+    </bean>-->
+
+
 
 </beans>
