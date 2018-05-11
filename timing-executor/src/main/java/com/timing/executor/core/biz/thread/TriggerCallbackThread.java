@@ -13,7 +13,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by winstone on 2017/8/21.
+ * @deprecated
  */
+@Deprecated
 public class TriggerCallbackThread {
 
     private static Logger logger = LoggerFactory.getLogger(TriggerCallbackThread.class);

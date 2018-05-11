@@ -1,5 +1,6 @@
 package com.timing.executor.core.biz.thread;
 
+import com.timing.executor.core.biz.disruptor.publisher.HandleCallbackPublisher;
 import com.timing.executor.core.biz.executor.TimingJobExecutor;
 import com.timing.executor.core.biz.handler.AbstractJobHandler;
 import com.timing.executor.core.biz.log.TimingJobFileAppender;
@@ -131,10 +132,12 @@ public class JobThread extends Thread{
 
 
                   if(!toStop){
-                      TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), executeResult));
+                    //  TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), executeResult));
+                      HandleCallbackPublisher.getInstance().publishEvent(new HandleCallbackParam(triggerParam.getLogId(), executeResult));
                   }else{
                       ReturnT<String> stopResult = new ReturnT<String>(ReturnT.FAIL_CODE, stopReason + " [业务运行中，被强制终止]");
-                      TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
+                  //    TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
+                      HandleCallbackPublisher.getInstance().publishEvent(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
                   }
 
               }else{
@@ -161,7 +164,8 @@ public class JobThread extends Thread{
           TriggerParam triggerParam = triggerQueue.poll();
           if(triggerParam!=null){
               ReturnT<String> stopResult = new ReturnT<String>(ReturnT.FAIL_CODE, stopReason + " [任务尚未执行，在调度队列中被终止]");
-              TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
+           //   TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
+              HandleCallbackPublisher.getInstance().publishEvent(new HandleCallbackParam(triggerParam.getLogId(), stopResult));
           }
        }
 

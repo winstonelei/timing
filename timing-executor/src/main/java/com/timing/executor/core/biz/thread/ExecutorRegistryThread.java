@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by winstone on 2017/8/21.
  */
+@Deprecated
 public class ExecutorRegistryThread {
 
     private static Logger logger = LoggerFactory.getLogger(ExecutorRegistryThread.class);

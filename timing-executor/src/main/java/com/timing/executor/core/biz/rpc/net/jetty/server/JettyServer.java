@@ -1,6 +1,8 @@
 package com.timing.executor.core.biz.rpc.net.jetty.server;
 
+import com.timing.executor.core.biz.disruptor.publisher.HandleCallbackPublisher;
 import com.timing.executor.core.biz.thread.ExecutorRegistryThread;
+import com.timing.executor.core.biz.thread.ScheduledServiceThread;
 import com.timing.executor.core.biz.thread.TriggerCallbackThread;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
@@ -43,9 +45,13 @@ public class JettyServer {
                     server.start();
                     logger.info(">>>>>>>>>>>> timing job jetty server start success at port:{}.", port);
 
-                    ExecutorRegistryThread.getInstance().start(ip,port,appName);
+          //          ExecutorRegistryThread.getInstance().start(ip,port,appName);
 
-                    TriggerCallbackThread.getInstance().start();
+                   // TriggerCallbackThread.getInstance().start();
+
+                    ScheduledServiceThread.getInstance().start(ip,port,appName);
+
+                    HandleCallbackPublisher.getInstance().start(1024);
 
                     server.join();	// block until thread stopped
                     logger.info(">>>>>>>>>>> timing rpc server join success, netcon={}, port={}", JettyServer.class.getName(), port);
@@ -76,10 +82,12 @@ public class JettyServer {
         }
 
         // destroy Registry-Server
-        ExecutorRegistryThread.getInstance().toStop();
+      //   ExecutorRegistryThread.getInstance().toStop();
 
         // destroy Callback-Server
-        TriggerCallbackThread.getInstance().toStop();
+      //  TriggerCallbackThread.getInstance().toStop();
+
+        HandleCallbackPublisher.getInstance().destory();
 
         logger.info(">>>>>>>>>>> timing rpc server destroy success, netcon={}", JettyServer.class.getName());
     }
